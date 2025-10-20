@@ -1,41 +1,103 @@
-// src/App.js
-import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import Counter from "./component/Task1/Counter";
 
-function App() {
-  // const dispatch = useDispatch();
 
-  // // Accessing state from Redux
-  // const count = useSelector((state) => state.counter.count);
-  // const user = useSelector((state) => state.user.name);
 
-  // return (
-    // <div style={{ textAlign: "center", marginTop: "50px" }}>
-    //   <h1>Redux Example 🚀</h1>
 
-    //   {/* Counter Section */}
-    //   <h2>Counter: {count}</h2>
-    //   <button onClick={() => dispatch({ type: "INCREMENT" })}>+</button>
-    //   <button onClick={() => dispatch({ type: "DECREMENT" })}>-</button>
 
-    //   <hr style={{ margin: "20px 0" }} />
 
-    //   {/* User Section */}
-    //   <h2>User: {user ? user : "No name set"}</h2>
-    //   <input
-    //     type="text"
-    //     placeholder="Enter name"
-    //     onChange={(e) =>
-    //       dispatch({ type: "SET_NAME", payload: e.target.value })
-    //     }
-    //   />
-    // </div>
-    // <div>
-    //   <Counter />
-    // </div>
-  
-  // );
-}
+// import React, { useState } from 'react'
+// import { useDispatch, useSelector } from 'react-redux';
+// import { addtoTodo, clearTodo, deleteTodo } from './Todo/Todoslice';
+
+// const App = () => {
+
+//   const [text, settext] = useState("");
+//   const todos = useSelector((state)=> state.todos.todos);
+//   const dispatch = useDispatch();
+
+
+//   const handleadd = ()=>{
+//     if(text.trim()!==""){
+//       dispatch(addtoTodo(text));
+//       settext("");
+//     }
+//   }
+
+//   return (
+//     <div>
+
+//       <h1>todo list</h1>
+//       <div>
+//         <input type="text" value={text} onChange={(e)=>settext(e.target.value)} placeholder='enetr a todo' />
+//         <button onClick={handleadd}>Add</button>
+//       </div>
+//       <ul>
+//         {todos.map((todo)=>(
+//           <li key={todo.id}>
+//             {todo.text},
+//             <button onClick={()=>dispatch(deleteTodo(todo.id))}>delete</button>
+//           </li>
+//         ))}
+//       </ul>
+//       {todos.length >0 &&(
+//         <button onClick={()=> dispatch(clearTodo())}>clearall</button>
+//       )}
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+
+
+
+
+
+
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Fetchpost from "./Thunk/Thunkfetch";
+
+const App = () => {
+  const dispatch = useDispatch();
+  const { loading, data, error } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(Fetchpost());
+  }, [dispatch]);
+
+  return (
+    <div>
+      <h1>Redux Thunk Posts</h1>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <ul>
+        {data.map((title, index) => (
+          <li key={index}>{title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
