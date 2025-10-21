@@ -1,0 +1,8 @@
+// src/store/store.js
+
+import { createStore } from "redux";
+import { counterReducer } from "./CounterReducer";
+
+
+
+export const store = createStore(counterReducer);
